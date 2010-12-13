@@ -3,4 +3,5 @@
   * [Bindings]
     * [Linked_bindings Linked bindings]
     * [Binding_annotations Binding annotations]
+    * [Instance_bindings Instance bindings]
   * [Differences_with_Guice Differences with Guice]
