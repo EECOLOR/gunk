@@ -1,4 +1,5 @@
-#summary How to start doing dependency injection with Gunk (most documentation taken from Guice).
+#summary How to start doing dependency injection with Gunk (documentation taken from Guice and modified).
+#labels Featured
 
 = Getting Started =
 
