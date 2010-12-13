@@ -1,0 +1,21 @@
+= Scopes =
+
+By default, Gunk returns a new instance each time it supplies a value. This behavior is configurable via scopes. Scopes allow you to reuse instances: Gunk provides one for the lifetime of an application, the Singleton scope.
+
+== Applying Scopes ==
+
+Applying Scopes
+
+Gunk comes with a Singleton annotation.
+
+{{{
+[Singleton]
+public class InMemoryTransactionLog implements ITransactionLog 
+{
+}
+
+Scopes can also be configured in bind statements: 
+
+{{{
+  bind(ITransactionLog).to(InMemoryTransactionLog).inScope(Scopes.SINGLETON);
+}}}
