@@ -95,6 +95,18 @@ class MyClass
 }
 }}}
 
+== Generics ==
+
+
+
+== Method overloading ==
+
+In Java you can have methods with the same name as the method is uniquely identified by it's arguments in combination with it's name. As a result Gunk sometimes has a method with a different name in order to be type safe. In other area's typing is more loose and the method accepts more then one type. The method then determines the cause of action based on the type of argument.
+
+== Reserved words ==
+
+In Guice you can use the {{{in(scope)}}} method to create a scoped binding. {{{in}}} is a reserved keyword in !ActionScript so the method is called {{{inScope}}}.
+
 = Provider injection =
 
 The lack of proper generics in !ActionScript forces Gunk to introduce a type annotation. A few examples:
