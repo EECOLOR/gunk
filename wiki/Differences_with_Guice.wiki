@@ -138,3 +138,21 @@ They are new in 3 and I missed them when creating the code.
 == Custom scope annotations ==
 
 Simply missed these when creating Gunk
+
+== Chained linked bindings ==
+
+Gunk does not support chained linked bindings:
+{{{
+public class BillingModule extends AbstractModule 
+{
+  override protected function configure():void
+  {
+    bind(ITransactionLog).to(DatabaseTransactionLog);
+    bind(DatabaseTransactionLog).to(MySqlDatabaseTransactionLog);
+  }
+}
+}}}
+
+== Singleton annotation on provides methods ==
+
+Simply missed these when creating Gunk
