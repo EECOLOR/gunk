@@ -17,39 +17,47 @@ public class PayPal extends AbstractAnnotation
 To depend on the annotated binding, apply the annotation to the injected argument:
 
 {{{
-public class RealBillingService implements BillingService 
+[Constructor("[Inject]", 0="[PayPal]")]
+public class RealBillingService implements IBillingService 
 {
-
-  @Inject
-  public RealBillingService(@PayPal CreditCardProcessor processor,
-      TransactionLog transactionLog) {
+  public function RealBillingService(processor:ICreditCardProcessor, transactionLog:ITransactionLog)
+  {
     ...
   }
 }
+}}}
 
 Lastly we create a binding that uses the annotation. This uses the optional annotatedWith clause in the bind() statement: 
-    bind(CreditCardProcessor.class)
-        .annotatedWith(PayPal.class)
-        .to(PayPalCreditCardProcessor.class);
+{{{
+    bind(ICreditCardProcessor)
+        .annotatedWith(PayPal)
+        .to(PayPalCreditCardProcessor);
+}}}
+
 == @Named ==
 
-Guice comes with a built-in binding annotation @Named that uses a string: 
-public class RealBillingService implements BillingService {
+Gunk comes with a built-in binding annotation {{{[Named]}}} that uses a string: 
 
-  @Inject
-  public RealBillingService(@Named("Checkout") CreditCardProcessor processor,
-      TransactionLog transactionLog) {
+{{{
+[Constructor("[Inject]", 0="[Named('Checkout')]")]
+public class RealBillingService implements IBillingService 
+{
+  public function RealBillingService(processor:ICreditCardProcessor, transactionLog:ITransactionLog) 
+  {
     ...
   }
+}
+}}}
 
-To bind a specific name, use Names.named() to create an instance to pass to annotatedWith: 
-    bind(CreditCardProcessor.class)
+To bind a specific name, use {{{Names.named()}}} to create an instance to pass to annotatedWith: 
+
+{{{
+    bind(ICreditCardProcessor)
         .annotatedWith(Names.named("Checkout"))
-        .to(CheckoutCreditCardProcessor.class);
+        .to(CheckoutCreditCardProcessor);
+}}}
 
-Since the compiler can't check the string, we recommend using @Named sparingly. 
-Binding Annotations with Attributes
 
-Guice supports binding annotations that have attribute values. In the rare case that you need such an annotation: 
-Create the annotation @interface. 
-Create a class that implements the annotation interface. Follow the guidelines for equals() and hashCode() specified in the Annotation Javadoc. Pass an instance of this to the annotatedWith() binding clause.
+== Binding Annotations with Attributes ==
+
+Gunk supports binding annotations that have attribute values. In the rare case that you need such an annotation implement {{{IAnnotation}}} or extend {{{AbstractAnnotation}}}.
