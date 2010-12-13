@@ -10,4 +10,4 @@
     * [Built_in_bindings Built-in bindings]
     * [Just_in_time_bindings Just-in-time bindings]
   * [Scopes]
-  * [Differences_with_Guice Differences with Guice]
+ * [Differences_with_Guice Differences with Guice]
