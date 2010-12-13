@@ -26,12 +26,29 @@ object (type derived from Name)
 
 == Argument annotations ==
 
-The concept of argument annotations does not exist in !ActionScript. Gunk therefore introduces an argument annotation.
+The concept of argument annotations does not exist in !ActionScript. Gunk therefore introduces an arguments annotation. An examples:
+
+This example:
+{{{
+[Arguments(0="[Named('name')]")]
+public function methodName(argument1:Object):void
+{
+  ...
+}
+}}}
+will be treated as:
+{{{
+public function methodName([Named("name")] argument1:Object):void
+{
+  ...
+}
+}}}
 
 == Constructor annotations ==
 
 For some odd reason these are not retained by {{{describeType()}}}. Gunk therefor introduces a constructor annotation. The contents of the constructor annotation will be treated as if they were placed at the constructor. Some examples:
 
+This example:
 {{{
 [Constructor("[Inject]")]
 class MyClass
@@ -39,8 +56,7 @@ class MyClass
   ...
 }
 }}}
-
-Will be treated as:
+will be treated as:
 {{{
 class MyClass
 {
@@ -51,5 +67,42 @@ class MyClass
 }
 }}}
 
+This example:
+{{{
+[Constructor("[Inject]", 0="[Named('name')]")]
+class MyClass
+{
+  public function MyClass(argument1:Object)
+  {
+  }
+}
+}}}
+will be treated as:
+{{{
+class MyClass
+{
+  [Inject]
+  public function MyClass([Named("name")] argument1:Object)
+  {
+  }
+}
+}}}
+
 = Provider injection =
 
+The lack of proper generics in !ActionScript forces Gunk to introduce a type annotation. A few examples:
+
+{{{
+[Inject]
+[Type("package.Classname")]
+public var provider:IProvider;
+}}}
+
+{{{
+[Constructor("[Inject]", 0="[Type('package.Classname')]")]
+public class MyClass
+{
+  public function MyClass(provider:IProvider)
+  {
+  }
+}
