@@ -115,6 +115,22 @@ public class MyClass
 }
 }}}
 
-= Eager singletons =
+= Unimplemented =
 
-Guice likes eager singletons, Gunk does not currently support it.
+If you want any of these implemented, make your case in an issue.
+
+== Eager singletons ==
+
+Guice likes eager singletons, Gunk does not currently support it. 
+
+== Stage ==
+
+To keep the first version simple, the concept of a Stage has not been implemented.
+
+== Binding for the Logger ==
+
+!ActionScript does not have a {{{Logger}}} class like Java does.
+
+== Constructor bindings ==
+
+They are new in 3 and I missed them when creating the code.
