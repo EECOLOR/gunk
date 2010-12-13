@@ -1,6 +1,6 @@
 = Linked Bindings =
 
-Linked bindings map a type to its implementation. This example maps the interface ITransactionLog to the implementation DatabaseTransationLog: 
+Linked bindings map a type to its implementation. This example maps the interface {{{ITransactionLog}}} to the implementation {{{DatabaseTransationLog}}}: 
 {{{
 public class BillingModule extends AbstractModule {
   override protected function configure():void
