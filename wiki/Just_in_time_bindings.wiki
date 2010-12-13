@@ -1,0 +1,65 @@
+#summary Bindings that are created automatically by Gunk
+
+= Just-in-time Bindings =
+
+When the injector needs an instance of a type, it needs a binding. The bindings in a modules are called explicit bindings, and the injector uses them whenever they're available. If a type is needed but there isn't an explicit binding, the injector will attempt to create a Just-In-Time binding. These are also known as JIT bindings and implicit bindings.
+
+== Eligible Constructors ==
+
+Gunk can create bindings for concrete types by using the type's injectable constructor. This is either a public, no-arguments constructor, or a constructor with the {{{[Inject]}}} annotation: 
+
+{{{
+public class PayPalCreditCardProcessor implements ICreditCardProcessor 
+{
+  private var _apiKey:String;
+
+  [Inject]
+  [Arguments(0="[Named('PayPal API key')]")]
+  public function PayPalCreditCardProcessor(apiKey:String):void 
+  {
+    _apiKey = apiKey;
+  }
+}
+}}}
+
+== ImplementedBy ==
+
+Types annotated with {{{[ImplementedBy]}}} tell the injector what their default implementation type is. The {{{[ImplementedBy]}}} annotation acts like a linked binding, specifying the subtype to use when building a type. Since the annotation is a string you need to provide the fully qualified class path and make sure the type is compiled into your application.
+
+{{{
+[ImplementedBy("package.PayPalCreditCardProcessor")]
+public interface !CreditCardProcessor 
+{
+  function charge(amount:String, creditCard:ICreditCard):IChargeResult;
+}
+}}}
+
+The above annotation is equivalent to the following {{{bind()}}} statement: 
+
+{{{
+    bind(ICreditCardProcessor).to(PayPalCreditCardProcessor);
+}}}
+
+If a type is in both a {{{bind()}}} statement (as the first argument) and has the {{{]{{{[ImplementedBy]}}} annotation, the {{{bind()}}} statement is used. The annotation suggests a default implementation that can be overridden with a binding. Use {{{[ImplementedBy]}}} carefully; it adds a dependency from the interface to its implementation. 
+
+== ProvidedBy ==
+
+{{{[ProvidedBy]}}} tells the injector about a Provider class that produces instances:
+
+{{{
+[ProvidedBy("package.DatabaseTransactionLogProvider")]
+public interface ITransactionLog 
+{
+  function logConnectException(e:UnreachableException):void;
+  function logChargeResult(result:ChargeResult):void;
+}
+}}}
+
+The annotation is equivalent to a {{{toProvider()}}} binding: 
+
+{{{
+    bind(ITransactionLog)
+        .toProvider(DatabaseTransactionLogProvider);
+}}}
+
+Like !ImplementedBy, if the type is annotated and used in a {{{bind()}}} statement, the {{{bind()}}} statement will be used.
