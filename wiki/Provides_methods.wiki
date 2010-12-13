@@ -1,4 +1,4 @@
-Provides Methods
+= Provides Methods =
 
 When you need code to create an object, use a Provides method. The method must be defined within a module, and it must have a {{{[Provides]}}} annotation. The method's return type is the bound type. Whenever the injector needs an instance of that type, it will invoke the method.
 
