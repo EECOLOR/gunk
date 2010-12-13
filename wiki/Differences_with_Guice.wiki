@@ -1,0 +1,55 @@
+#summary Describes the differences with Guice
+
+= !ActionScript limitations =
+
+!ActionScript has (compared to Java) a few limitations, most of them regarding annotations and generics.
+
+== Annotations ==
+
+Annotations in !ActionScript are quite different from Java. In ActionScript they are nothing more than a piece of XML that is kept at runtime. In order to have a tiny bit of typing available when dealing with annotations Gunk requires annotations to be real objects of type {{{IAnnotation}}} (see the ASDoc for more details).
+
+This means that the {{{[Type]}}} or {{{[Named]}}} annotation are represented by classes with the names Type and Named.
+
+{{{
+[Name("defaultValue", key1 = "value1", key2 = "value2")]
+}}}
+
+Is converted to this structure:
+
+{{{
+object (type derived from Name)
+ |__ defaultValue: "defaultValue"
+ |__ values (type IMap)
+       |__ key1: "value1"
+       |__ key2: "value2"
+}}}
+
+== Argument annotations ==
+
+The concept of argument annotations does not exist in !ActionScript. Gunk therefore introduces an argument annotation.
+
+== Constructor annotations ==
+
+For some odd reason these are not retained by {{{describeType()}}}. Gunk therefor introduces a constructor annotation. The contents of the constructor annotation will be treated as if they were placed at the constructor. Some examples:
+
+{{{
+[Constructor("[Inject]")]
+class MyClass
+{
+  ...
+}
+}}}
+
+Will be treated as:
+{{{
+class MyClass
+{
+  [Inject]
+  public function MyClass()
+  {
+  }
+}
+}}}
+
+= Provider injection =
+
