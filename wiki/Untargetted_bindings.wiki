@@ -1,0 +1,20 @@
+= Untargetted Bindings =
+
+You may create bindings without specifying a target. This is most useful for concrete classes and types annotated by either {{{[ImplementedBy]}}} or {{{[ProvidedBy]}}}. An untargetted binding informs the injector about a type, so it may prepare dependencies. Untargetted bindings have no to clause, like so: 
+
+{{{
+    bind(MyConcreteClass);
+    bind(AnotherConcreteClass).asSingleton();
+}}}
+
+When specifying binding annotations, you must still add the target binding, even it is the same concrete class. For example: 
+
+{{{
+    bind(MyConcreteClass)
+       .annotatedWith(Names.named("foo"))
+       .to(MyConcreteClass);
+    bind(AnotherConcreteClass)
+       .annotatedWith(Names.named("foo"))
+       .to(AnotherConcreteClass)
+       .asSingleton();
+}}}
