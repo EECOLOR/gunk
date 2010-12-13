@@ -9,5 +9,6 @@ You can bind a type to a specific instance of that type. This is usually only us
     bind(int)
         .annotatedWith(Names.named("login timeout seconds"))
         .toInstance(10);
+}}}
 
 Avoid using {{{.toInstance}}} with objects that are complicated to create, since it can slow down application startup. You can use an [Provides_methods Provides method] instead.
