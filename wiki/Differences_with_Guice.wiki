@@ -168,3 +168,7 @@ public class BillingModule extends AbstractModule
 == Singleton annotation on provides methods ==
 
 Simply missed these when creating Gunk
+
+== Circular dependencies for constructors ==
+
+In theory this could be added, it's not easy and would require the use of [http://www.as3commons.org/as3-commons-bytecode/introduction.html AS3Commons Bytecode]
