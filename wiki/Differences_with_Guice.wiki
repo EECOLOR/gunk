@@ -134,3 +134,7 @@ To keep the first version simple, the concept of a Stage has not been implemente
 == Constructor bindings ==
 
 They are new in 3 and I missed them when creating the code.
+
+== Custom scope annotations ==
+
+Simply missed these when creating Gunk
