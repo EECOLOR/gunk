@@ -1,5 +1,9 @@
 #summary Describes the differences with Guice
 
+= Naming conventions =
+
+This is an !ActionScript library and the Flash player itself prefixes interfaces with an 'I'. This is the reason the names of interfaces all start with an 'I'.
+
 = !ActionScript limitations =
 
 !ActionScript has (compared to Java) a few limitations, most of them regarding annotations and generics.
