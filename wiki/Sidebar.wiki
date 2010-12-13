@@ -7,4 +7,5 @@
     * [Provides_methods Provides methods]
     * [Provider_bindings Provider bindings]
     * [Untargetted_bindings Untargetted bindings]
+    * [Built-in_bindings Built-in bindings]
   * [Differences_with_Guice Differences with Guice]
