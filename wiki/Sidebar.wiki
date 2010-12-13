@@ -5,4 +5,5 @@
     * [Binding_annotations Binding annotations]
     * [Instance_bindings Instance bindings]
     * [Provides_methods Provides methods]
+    * [Provider_bindings Provider bindings]
   * [Differences_with_Guice Differences with Guice]
