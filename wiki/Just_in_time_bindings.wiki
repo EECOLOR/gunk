@@ -22,7 +22,7 @@ public class PayPalCreditCardProcessor implements ICreditCardProcessor
 }
 }}}
 
-== ImplementedBy ==
+== !ImplementedBy ==
 
 Types annotated with {{{[ImplementedBy]}}} tell the injector what their default implementation type is. The {{{[ImplementedBy]}}} annotation acts like a linked binding, specifying the subtype to use when building a type. Since the annotation is a string you need to provide the fully qualified class path and make sure the type is compiled into your application.
 
@@ -40,9 +40,9 @@ The above annotation is equivalent to the following {{{bind()}}} statement:
     bind(ICreditCardProcessor).to(PayPalCreditCardProcessor);
 }}}
 
-If a type is in both a {{{bind()}}} statement (as the first argument) and has the {{{]{{{[ImplementedBy]}}} annotation, the {{{bind()}}} statement is used. The annotation suggests a default implementation that can be overridden with a binding. Use {{{[ImplementedBy]}}} carefully; it adds a dependency from the interface to its implementation. 
+If a type is in both a {{{bind()}}} statement (as the first argument) and has the {{{[ImplementedBy]}}} annotation, the {{{bind()}}} statement is used. The annotation suggests a default implementation that can be overridden with a binding. Use {{{[ImplementedBy]}}} carefully; it adds a dependency from the interface to its implementation. 
 
-== ProvidedBy ==
+== !ProvidedBy ==
 
 {{{[ProvidedBy]}}} tells the injector about a Provider class that produces instances:
 
