@@ -1,5 +1,8 @@
 #summary Describes the differences with Guice
 
+*Table of contents*
+<wiki:toc max_depth="2" />
+
 = Naming conventions =
 
 This is an !ActionScript library and the Flash player itself prefixes interfaces with an 'I'. This is the reason the names of interfaces all start with an 'I'.
@@ -110,3 +113,7 @@ public class MyClass
   {
   }
 }
+
+= Eager singletons =
+
+Guice likes eager singletons, Gunk does not currently support it.
