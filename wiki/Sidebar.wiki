@@ -2,4 +2,5 @@
   * [Getting_started Getting started]
   * [Bindings]
     * [Linked_bindings Linked bindings]
+    * [Binding_annotations Binding annotations]
   * [Differences_with_Guice Differences with Guice]
