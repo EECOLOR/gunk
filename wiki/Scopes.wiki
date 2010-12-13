@@ -13,6 +13,7 @@ Gunk comes with a Singleton annotation.
 public class InMemoryTransactionLog implements ITransactionLog 
 {
 }
+}}}
 
 Scopes can also be configured in bind statements: 
 
