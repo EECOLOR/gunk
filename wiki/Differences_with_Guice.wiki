@@ -97,7 +97,7 @@ class MyClass
 
 == Generics ==
 
-
+Gunk is a project that would flourish with proper generics. It might push me to the Haxe camp (if there comes a nice editor for Haxe).
 
 == Method overloading ==
 
