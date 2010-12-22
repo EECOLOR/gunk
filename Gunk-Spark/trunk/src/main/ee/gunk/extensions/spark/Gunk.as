@@ -12,8 +12,6 @@ package ee.gunk.extensions.spark
 	import mx.core.IUIComponent;
 	import mx.events.FlexEvent;
 	
-	import org.fluint.uiImpersonation.flex.FlexEnvironmentBuilder;
-	
 	import spark.events.ElementExistenceEvent;
 
 	[DefaultProperty("modules")]
