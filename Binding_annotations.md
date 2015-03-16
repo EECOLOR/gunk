@@ -1,0 +1,63 @@
+# Binding Annotations #
+
+Occasionally you'll want multiple bindings for a same type. For example, you might want both a PayPal credit card processor and a Google Checkout processor. To enable this, bindings support an optional binding annotation. The annotation and type together uniquely identify a binding. This pair is called a key.
+
+Defining a binding annotation requires a few lines of code. You need to create an instance that implements `IAnnotation`. A simple annotation can be created like this:
+
+```
+public class PayPal extends AbstractAnnotation
+{
+  public function PayPal()
+  {
+    super(null, null);
+  }
+}
+```
+
+To depend on the annotated binding, apply the annotation to the injected argument:
+
+```
+[Constructor("[Inject]", 0="[PayPal]")]
+public class RealBillingService implements IBillingService 
+{
+  public function RealBillingService(processor:ICreditCardProcessor, transactionLog:ITransactionLog)
+  {
+    ...
+  }
+}
+```
+
+Lastly we create a binding that uses the annotation. This uses the optional annotatedWith clause in the bind() statement:
+```
+    bind(ICreditCardProcessor)
+        .annotatedWith(PayPal)
+        .to(PayPalCreditCardProcessor);
+```
+
+## @Named ##
+
+Gunk comes with a built-in binding annotation `[Named]` that uses a string:
+
+```
+[Constructor("[Inject]", 0="[Named('Checkout')]")]
+public class RealBillingService implements IBillingService 
+{
+  public function RealBillingService(processor:ICreditCardProcessor, transactionLog:ITransactionLog) 
+  {
+    ...
+  }
+}
+```
+
+To bind a specific name, use `Names.named()` to create an instance to pass to annotatedWith:
+
+```
+    bind(ICreditCardProcessor)
+        .annotatedWith(Names.named("Checkout"))
+        .to(CheckoutCreditCardProcessor);
+```
+
+
+## Binding Annotations with Attributes ##
+
+Gunk supports binding annotations that have attribute values. In the rare case that you need such an annotation implement `IAnnotation` or extend `AbstractAnnotation`.

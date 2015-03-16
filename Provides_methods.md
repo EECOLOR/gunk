@@ -1,0 +1,39 @@
+# Provides Methods #
+
+When you need code to create an object, use a Provides method. The method must be defined within a module, and it must have a `[Provides]` annotation. The method's return type is the bound type. Whenever the injector needs an instance of that type, it will invoke the method.
+
+```
+public class BillingModule extends AbstractModule 
+{
+  protected void configure() 
+  {
+    ...
+  }
+
+  [Provides]
+  public function provideTransactionLog():ITransactionLog 
+  {
+    var transactionLog:DatabaseTransactionLog = new DatabaseTransactionLog();
+    transactionLog.setServerUrl("/services/gateway");
+    transactionLog.setThreadPoolSize(30);
+    return transactionLog;
+  }
+}
+```
+
+If the Provides method has a binding annotation like `[PayPal]` or {{{[Named("Checkout")], Gunk binds the annotated type. Dependencies can be passed in as parameters to the method. The injector will exercise the bindings for each of these before invoking the method.
+```
+  [Provides]
+  [PayPal]
+  [Arguments(0="[Named('PayPal API key')]")]
+  public function providePayPalCreditCardProcessor(apiKey:String):CreditCardProcessor 
+  {
+    var processor:PayPalCreditCardProcessor = new PayPalCreditCardProcessor();
+    processor.setApiKey(apiKey);
+    return processor;
+  }
+```
+
+## Throwing Exceptions ##
+
+Gunk does not like exceptions to be thrown from Providers. It is bad practice to allow any kind of exception to be thrown from a Provides method.

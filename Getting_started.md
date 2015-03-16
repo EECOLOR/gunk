@@ -1,0 +1,67 @@
+# Getting Started #
+
+With dependency injection, objects accept dependencies in their constructors, properties and methods. To construct an object, you first build it's dependencies. But to build each dependency, you need its dependencies, and so on.
+
+To illustrate, we'll start the `RealBillingService` class that accepts its dependent interfaces `ICreditCardProcessor` and `ITransactionLog` in its constructor. To make it explicit that the `RealBillingService` constructor is invoked by Gunk, we add the [Inject](Inject.md) annotation. Note that ActionScript does not preserve constructor annotations, this is why we use the `[Constructor]` annotation at class level:
+
+```
+[Constructor("[Inject]")]
+class RealBillingService implements IBillingService 
+{
+  private _processor:ICreditCardProcessor;
+  private _transactionLog:ITransactionLog;
+
+  public function RealBillingService(processor:ICreditCardProcessor, transactionLog:ITransactionLog) 
+  {
+    _processor = processor;
+    _transactionLog = transactionLog;
+  }
+
+  public function chargeOrder(order:IPizzaOrder, creditCard:ICreditCard):IReceipt 
+  {
+    ...
+  }
+}
+```
+
+We want to build a `RealBillingService` using `PaypalCreditCardProcessor` and `DatabaseTransactionLog`. Gunk uses bindings to map types to their implementations. A module is a collection of bindings specified using fluent, English-like method calls:
+
+```
+public class BillingModule extends AbstractModule 
+{
+  override protected function configure():void
+  {
+     /*
+      * This tells Gunk that whenever it sees a dependency on a ITransactionLog,
+      * it should satisfy the dependency using a DatabaseTransactionLog.
+      */
+    bind(ITransactionLog).to(DatabaseTransactionLog);
+
+     /*
+      * Similarly, this binding tells Gunk that when ICreditCardProcessor is used in
+      * a dependency, that should be satisfied with a PaypalCreditCardProcessor.
+      */
+    bind(ICreditCardProcessor).to(PaypalCreditCardProcessor);
+  }
+}
+```
+
+The modules are the building blocks of an injector, which is Gunk's builder. First we create the injector, and then we can use that to build the `RealBillingService`:
+
+```
+public function main():void
+{
+    /*
+     * Gunk.createInjector() takes your Modules, and returns a new IInjector
+     * instance. Most applications will call this method exactly once, in their
+     * main() method.
+     */
+    var injector:IInjector = Gunk.createInjector(new BillingModule());
+
+    /*
+     * Now that we've got the injector, we can build objects.
+     */
+    var billingService:RealBillingService = injector.getInstance(RealBillingService);
+    ...
+  }
+```
